@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title>User</title>
+    {% include "metadata.html" %}
+  </head>
+  <body>
+    <!-- header -->
+    <div class="">
+
+    </div>
+    <!-- thông báo -->
+    <div class="">
+      {% with messages = get_flashed_messages()%}
+      {% if messages %}
+        {% for message in messages %}
+        <div class="alert alert-warning alert-dismissible fade show" role="alert">
+          {{message}}
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+        </div>
+        {% endfor %}
+      {% endif %}
+      {% endwith %}
+    </div>
+
+    <!-- body-->
+    <div class="">
+      <!-- Các topic đã tạo -->
+      <div class="">
+        {% for topic in topics %}
+        <div class="">
+          <a href="{{url_for('topic',topic_id = topic.id)}}">{{topic.question}}</a>
+        </div>
+        {% endfor%}
+        <!-- Nút tạo topic mới -->
+        <div class="">
+          <button type="button"><a href="{{ url_for('new_topic')}}">Tạo topic mới</a> </button>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- footer -->
+    <div class="">
+
+    </div>
+
+  </body>
+</html>

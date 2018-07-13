@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title>Topic</title>
+  </head>
+  <body>
+    <!-- Header -->
+    <div class="">
+
+    </div>
+    <!-- Body -->
+    <div class="">
+      <div class="">
+        {{topic.question}}
+      </div>
+      <div class="">
+        <img class =""  src="data:image/jpg;base64,{{topic.image}}" alt=" static\yes-and-no-signs_1325-370.jpg">
+      </div>
+      <div class="">
+        {{topic.group}}
+        {{topic.author}}
+      </div>
+      <div class="">
+        {{topic.votes_yes}}
+        {{topic.votes_no}}
+      </div>
+      <div class="">
+        {% for vote in votes%}
+        <div class="">
+          {{vote.user}}
+           <br>
+          {% if vote.vote_yes %}
+            <label>Yes</label>
+          {%else%}
+            <label>No</label>
+          {%endif%}
+          <br>
+          {{vote.answer}}
+        </div>
+
+        {% endfor %}
+
+      </div>
+
+      {% if  session.logged_in%}
+      {% if session.username not in topic.users_voted%}
+      <div class="">
+        <form class="" method="post">
+          <label>Yes</label>
+          <input type="radio" name="choice" value="yes">
+          <input type="text" name="answer" >
+          <label>No</label>
+          <input type="radio" name="choice" value="no">
+          <input type="text" name="answer" >
+
+          <input type="submit"  value="Vote">
+
+        </form>
+
+      </div>
+      {% endif %}
+      {% endif %}
+
+
+    </div>
+    <!-- Footer -->
+    <div class="">
+
+    </div>
+
+
+
+
+
+
+  </body>
+</html>

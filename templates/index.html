@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title>Trang chủ</title>
+    {% include "metadata.html" %}
+
+  </head>
+  <body>
+    <!-- header -->
+    <div class="">
+      <!-- logo -->
+      <div class="">
+        <a href="{{ url_for('index')}}">Trang chủ</a>
+      </div>
+      <!-- navbar -->
+      <div class="">
+        {% if session.logged_in %}
+        <a href="{{ url_for('user', username = session.username) }}">User Profile</a>
+        <a href="{{ url_for('log_out') }}">Log out</a>
+        {% else %}
+        <a href="{{ url_for('sign_up') }}">Sign up</a>
+        <a href="{{ url_for('log_in') }}">Log in</a>
+        {% endif %}
+      </div>
+
+    </div>
+
+    <!-- body -->
+    <div class="">
+
+      <h2>Nhóm các chủ đề</h2>
+      <div class="">
+        <ul>
+          <li><a href="#">Group 1</a></li>
+          <li><a href="#">Group 2</a></li>
+          <li><a href="#">Group 3</a></li>
+          <li><a href="#">Group 4</a></li>
+          <li><a href="#">Khác</a></li>
+        </ul>
+
+      </div>
+
+    </div>
+
+    <!-- footer -->
+    <div class="">
+
+    </div>
+
+
+  </body>
+</html>

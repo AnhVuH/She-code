@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title></title>
+      {% include "metadata.html" %}
+      <!-- Confirm password jquery -->
+      <script type="text/javascript">
+          var password = document.getElementById("password")
+          var confirm_password = document.getElementById("confirm_password");
+
+          function validatePassword(){
+            if(password.value != confirm_password.value) {
+                confirm_password.setCustomValidity("Passwords Don't Match");
+              } else {
+                confirm_password.setCustomValidity('');
+              }
+            }
+          password.onchange = validatePassword;
+          confirm_password.onkeyup = validatePassword;
+
+      </script>
+
+
+  </head>
+  <body>
+    <!-- header -->
+    <div class="">
+
+    </div>
+
+
+
+    <!-- body -->
+    <div class="">
+      <!-- thông báo lỗi đăng ký -->
+      <div class="">
+        	{% with messages = get_flashed_messages() %}
+        	  {% if messages %}
+        	    {% for message in messages %}
+        		  <div class="alert alert-warning alert-dismissible fade show" role="alert">
+                {{message}}
+        		  <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        		  </div>
+        		{% endfor %}
+        	  {% endif %}
+        	{% endwith %}
+
+      </div>
+      <!-- Form đăng ký -->
+      <div class="">
+        <form class="" method="post">
+
+          <label>Username</label>
+          <input type="text" name="username" placeholder="Username" required>
+
+          <label>Email</label>
+          <input type="email" name="email" placeholder="Email" required>
+
+          <label>Password</label>
+          <input type="password" name="password" id ="password"  placeholder="Password"  pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}" title="Must contain at least one number and one uppercase and lowercase letter, and at least 8 or more characters"  required>
+
+
+          <label>Confirm Password</label>
+          <input type="password" id ="confirm_password" placeholder ="Confirm Password" required>
+
+          <input type="submit"  value="Sign up">
+        </form>
+      </div>
+
+    </div>
+
+
+    <!-- footer  -->
+    <div class="">
+
+    </div>
+
+
+  </body>
+</html>
