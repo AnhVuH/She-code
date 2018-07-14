@@ -4,11 +4,15 @@
     <meta charset="utf-8">
     <title>User</title>
     {% include "metadata.html" %}
+    <link rel="stylesheet" href="../static/css/user.css">
+    <link href="https://fonts.googleapis.com/css?family=Gaegu" rel="stylesheet">
   </head>
   <body>
     <!-- header -->
-    <div class="">
-
+    <div id ="bg-img">
+      <div class="">
+        <a class="btn-home" href="{{url_for('index')}}">Food for thought</a>
+      </div>
     </div>
     <!-- thông báo -->
     <div class="">
@@ -27,20 +31,47 @@
     </div>
 
     <!-- body-->
-    <div class="">
-      <!-- Các topic đã tạo -->
-      <div class="">
-        {% for topic in topics %}
-        <div class="">
-          <a href="{{url_for('topic',topic_id = topic.id)}}">{{topic.question}}</a>
-        </div>
-        {% endfor%}
-        <!-- Nút tạo topic mới -->
-        <div class="">
-          <button type="button"><a href="{{ url_for('new_topic')}}">Tạo topic mới</a> </button>
-        </div>
-
+    <div class="d-flex flex-column justify-content-around align-center">
+      <!-- Nút tạo topic mới -->
+      <div class="d-flex justify-content-center my-3">
+        <button type="button"><a href="{{ url_for('new_topic')}}">Tạo topic mới</a> </button>
       </div>
+      <!-- Các topic đã tạo -->
+      <div class="my-2">
+        <p class="text-center">Các topic đã tạo</p>
+        <div class="d-flex justify-content-around flex-wrap">
+          {% for topic in topics %}
+          <div class="">
+            <a href="{{url_for('topic',topic_id = topic.id)}}">{{topic.question}}</a>
+            <div class="">
+                <img class ="" style="width:200px;height:200px" src="data:image/jpg;base64,{{topic.image}}" alt="">
+            </div>
+          </div>
+          {% endfor %}
+        </div>
+      </div>
+
+      <!-- Các vote đã vote -->
+      <div class="my-2">
+        <p class="text-center">Các topic đã vote</p>
+        <div class="d-flex justify-content-around flex-wrap">
+          {% for vote in votes%}
+          <div class="">
+            <a href="{{ url_for('topic', topic_id=vote.topic.id)}}">{{vote.topic.question}} </a>
+            <div class="">
+                <img class ="" style="width:200px;height:200px" src="data:image/jpg;base64,{{vote.topic.image}}" alt="">
+            </div>
+            {% if vote.vote_yes %}
+            <p>Lựa chọn: Yes</p>
+            {%else%}
+            <p>Lựa chọn: No</p>
+            {% endif %}
+          </div>
+          {% endfor %}
+
+        </div>
+      </div>
+
     </div>
 
     <!-- footer -->

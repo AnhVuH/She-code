@@ -94,7 +94,7 @@ def admin_required(f):
 @login_required
 def user(username):
     topics = Topic.objects(author__exact = session['username'])
-    votes = Vote.objects(user_exact=session['username'])
+    votes = Vote.objects(user__exact=session['username'])
     return render_template ('user.html', topics = topics, votes = votes)
 
 
@@ -139,9 +139,9 @@ def new_topic():
 
             image_string = convert_image_to_string(img,image_size_MB)
         except:
-            image_size_MB = os.path.getsize("static\yes-and-no-signs_1325-370.jpg")/104857
+            image_size_MB = os.path.getsize("static\image\yes-and-no-signs_1325-370.jpg")/104857
             # print(image_size_MB)
-            img = Image.open("static\yes-and-no-signs_1325-370.jpg")
+            img = Image.open("static\image\yes-and-no-signs_1325-370.jpg")
             image_string = convert_image_to_string(img,image_size_MB)
 
 

@@ -1,0 +1,25 @@
+.btn-home{
+  font-size: 50px;
+  font-weight: bold;
+  font-family: 'Gaegu', cursive;
+  color:#402E2A;
+}
+#bg-img{
+  background-image: url("../image/Elegant_Background-3-1024x576.jpg");
+  height: 700px;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+.h-50px{
+    height: 50px;
+}
+#footer-text{
+  color: white;
+  font-size:25px;
+  font-family: 'Gaegu', cursive;
+}
+
+.w-30{
+  width: 30%;
+}

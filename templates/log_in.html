@@ -4,15 +4,18 @@
     <meta charset="utf-8">
     <title></title>
     {% include "metadata.html" %}
+    <link href="https://fonts.googleapis.com/css?family=Gaegu" rel="stylesheet">
+
+    <link rel="stylesheet" href="../static/css/log_in.css">
+
 
   </head>
   <body>
-    <!-- Header -->
-    <div class="">
-
-    </div>
     <!-- Body -->
-    <div class="">
+    <div  id ="bg-img">
+      <div class="">
+        <a class="btn-home" href="{{url_for('index')}}">Food for thought</a>
+      </div>
       <!-- thông báo lỗi đăng nhập  -->
       <div class="">
         {% with messages = get_flashed_messages()%}
@@ -29,22 +32,30 @@
         {% endwith %}
       </div>
       <!-- Form đăng nhập -->
-      <div class="">
-        <form class="" method="post">
-          <label>Username</label>
-          <input type="text" name="username" required>
+      <div class="d-flex flex-column align-items-center">
+        <div class="w-30 mt-5">
+          <form class="" method="post">
+            <div class="form-group">
+              <label for="username">Username</label>
+              <input type="text" class="form-control" id="username" name="username" placeholder="Username" required>
+            </div>
 
-          <label>Password</label>
-          <input type="password" name="password" required>
+            <div class="form-group">
+              <label for="password">Password</label>
+              <input type="password" class="form-control" id="password"  name="password" placeholder="Password"  required>
+            </div>
 
-          <input type="submit"  value="Log in">
-        </form>
+
+            <button type="submit" class="btn btn-primary">Submit</button>
+          </form>
+        </div>
+
       </div>
 
     </div>
     <!-- Footer -->
-    <div class="">
-
+    <div class ="bg-dark h-50px">
+        <p id ="footer-text" class ="text-center">SheCodes Hackathon 2018</p>
     </div>
 
 

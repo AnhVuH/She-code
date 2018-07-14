@@ -4,53 +4,122 @@
     <meta charset="utf-8">
     <title>Trang chủ</title>
     {% include "metadata.html" %}
-
+    <link rel="stylesheet" href="../static/css/index.css">
+    <link href="https://fonts.googleapis.com/css?family=Gaegu" rel="stylesheet">
   </head>
   <body>
     <!-- header -->
-    <div class="">
+    <div class="bg-image">
       <!-- logo -->
-      <div class="">
-        <a href="{{ url_for('index')}}">Trang chủ</a>
-      </div>
-      <!-- navbar -->
-      <div class="">
-        {% if session.logged_in %}
-        {% if session.username == 'admin'%}
-        <a href="{{ url_for('admin')}}">Admin</a>
-        {%else%}
-        <a href="{{ url_for('user', username = session.username) }}">User Profile</a>
-        {% endif %}
-        <a href="{{ url_for('log_out') }}">Log out</a>
-        {% else %}
-        <a href="{{ url_for('sign_up') }}">Sign up</a>
-        <a href="{{ url_for('log_in') }}">Log in</a>
-        {% endif %}
+      <div>
+      <div id="header" class="d-flex pt-0">
+        <p class="btn justify-content-end pl-5 home-button"> <a class="btn-home" href="{{ url_for('index')}}">Food for thought</a> </p>
+
+        <div id="navbar" class="d-flex justify-content-end">
+          {% if session.logged_in %}
+            {% if session.username == 'admin'%}
+              <p class="btn d-flex justify-xcontent-end"><a class="text-muted" href="{{ url_for('admin')}}">Admin</a> </p>
+            {%else%}
+              <p class="btn d-flex justify-content-end"><a class="text-muted" href="{{ url_for('user', username = session.username) }}">User Profile</a> </p>
+            {% endif %}
+            <p class="btn "><a class="text-muted" href="{{ url_for('log_out') }}">Log out</a> </p>
+          {% else %}
+            <p class="btn "><a class="text-muted" href="{{ url_for('sign_up') }}">Sign up</a> </p>
+            <p class="btn "><a class="text-muted" href="{{ url_for('log_in') }}">Log in</a> </p>
+          {% endif %}
+        </div>
       </div>
 
+      <div class="">
+        {% with messages = get_flashed_messages()%}
+        {% if messages %}
+          {% for message in messages %}
+          <div class="alert alert-warning alert-dismissible fade show" role="alert">
+            {{message}}
+          <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+          </div>
+          {% endfor %}
+        {% endif %}
+        {% endwith %}
+      </div>
+
+      </div>
+      <div class="h-75 w-50 ml-5 pl-5 mt-5 d-flex justify-content-end"
+      data-aos="fade-up" data-aos-duration="1300" data-aos-anchor-placement="top-center" data-aos-once="true">
+      <p class="quote01 mb-3 font-size-25px ">
+        <span class="main-co">Food for thought</span>
+         là một trang web nhỏ để mọi người chia sẻ ý kiến, đóng góp lập luận, với mục đích phát triển tư diu pản biện của học sinh, sinh viên Việt Nam </p>
     </div>
+      </div>
+      <!-- navbar -->
+
 
     <!-- body -->
     <div class="">
 
-      <h2>Nhóm các chủ đề</h2>
-      <div class="">
-        <ul>
-          <li><a href="{{url_for('group', group_name= 'Group 1')}}">Group 1</a></li>
-          <li><a href="{{url_for('group', group_name= 'Group 2')}}">Group 2</a></li>
-          <li><a href="{{url_for('group', group_name= 'Group 3')}}">Group 3</a></li>
-          <li><a href="{{url_for('group', group_name= 'Group 4')}}">Group 4</a></li>
-          <li><a href="{{url_for('group', group_name= 'Group 5')}}">Khác</a></li>
-        </ul>
+      <div class=" w-100 my-5">
+        <div  class=" w-100 text-align-center"><h2>Nhóm các chủ đề</h2></div>
+
+      <div class="card-deck  w-75 mx-auto  d-flex justify-center my-5">
+
+        <div class="card ">
+          <img class="card-img-top height-230px" src="../static/image/LGBT.jpg" alt="Card image cap">
+          <div class="card-body text-align-center">
+            <h5 class="card-title"><a href="{{url_for('group', group_name= 'LGBT')}}">LGBT</a></h5>
+          </div>
+        </div>
+        <div class="card">
+          <img class="card-img-top  height-230px" src="../static/image/health.png" alt="Card image cap">
+          <div class="card-body text-align-center">
+            <h5 class="card-title"><a href="{{url_for('group', group_name= 'Sức khỏe')}}">Sức khỏe</a></h5>
+          </div>
+        </div>
+        <div class="card">
+          <img class="card-img-top  height-230px" src="../static/image/education.png" alt="Card image cap">
+          <div class="card-body text-align-center">
+            <h5 class="card-title"><a href="{{url_for('group', group_name= 'Giáo dục')}}">Giáo dục</a></h5>
+          </div>
+        </div>
+      </div>
+
+      <div class="card-deck  w-75 mx-auto  d-flex justify-center my-5">
+
+        <div class="card">
+          <img class="card-img-top  height-230px" src="../static/image/law.jpg" alt="Card image cap">
+          <div class="card-body text-align-center">
+            <h5 class="card-title"><a href="{{url_for('group', group_name= 'Pháp luật')}}">Pháp luật</a></h5>
+          </div>
+        </div>
+        <div class="card">
+          <img class="card-img-top  height-230px" src="../static/image/science.jpg" alt="Card image cap">
+          <div class="card-body text-align-center">
+            <h5 class="card-title"><a href="{{url_for('group', group_name= 'Khoa học')}}">Khoa học</a></h5>
+          </div>
+        </div>
+        <div class="card">
+          <img class="card-img-top  height-230px" src="../static/image/life.jpg" alt="Card image cap">
+          <div class="card-body text-align-center">
+            <h5 class="card-title"><a href="{{url_for('group', group_name= 'Đời sống')}}">Đời sống</a></h5>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="text-dark"><p>lalalal</p>
+
+    </div>
 
       </div>
 
-    </div>
+
 
     <!-- footer -->
-    <div class="">
+      <div class ="bg-dark h-50px">
+              <p id ="footer-text" class ="text-center">SheCodes Hackathon 2018</p>
+          </div>
 
-    </div>
 
 
   </body>
