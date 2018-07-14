@@ -28,6 +28,7 @@
         <label>No</label>
         {{topic.votes_no}}
       </div>
+
       <div class="">
         {% for vote in votes%}
         <div class="">
@@ -40,10 +41,16 @@
           {%endif%}
           <br>
           {{vote.answer}}
+          
+          {% if vote.reported %}
+          <a href="#">Reported</a>
+
+          {% else %}
+          <a href="{{ url_for('report_vote',vote_id = vote.id)}}">Report</a>
+          {% endif %}
+
         </div>
-
         {% endfor %}
-
       </div>
 
       {% if  session.logged_in%}

@@ -16,7 +16,11 @@
       <!-- navbar -->
       <div class="">
         {% if session.logged_in %}
+        {% if session.username == 'admin'%}
+        <a href="{{ url_for('admin')}}">Admin</a>
+        {%else%}
         <a href="{{ url_for('user', username = session.username) }}">User Profile</a>
+        {% endif %}
         <a href="{{ url_for('log_out') }}">Log out</a>
         {% else %}
         <a href="{{ url_for('sign_up') }}">Sign up</a>

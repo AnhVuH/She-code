@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title>Admin</title>
+  </head>
+  <body>
+    <!-- Topic chờ accept -->
+    <h3>Topic chờ</h3>
+    <div class="">
+      <table border="1px">
+        <thead>
+          <th>STT</th>
+          <th>Topic</th>
+          <th>Ảnh</th>
+          <th>Người tạo</th>
+          <th>Thao tác</th>
+        </thead>
+        <tbody>
+          {% for topic in topics_temp%}
+          <tr>
+            <td>{{ loop.index }}</td>
+            <td>{{topic.question}}</td>
+            <td> <img class ="" style="width:200px;height:200px" src="data:image/jpg;base64,{{topic.image}}" alt=""></td>
+            <td>{{topic.author}}</td>
+            <td><a href="{{ url_for('delete_topic',topic_id = topic.id)}}">Xóa</a>
+              <a href="{{ url_for('accept_topic', topic_id = topic.id)}}">Chấp thuận</a>
+            </td>
+          </tr>
+          {% endfor %}
+        </tbody>
+
+
+      </table>
+    </div>
+    <!-- Vote bị report -->
+    <h2>Vote bị report</h2>
+    <div class="">
+      <table border="1px">
+        <thead>
+          <th>STT</th>
+          <th>Câu trả lời</th>
+          <th>Người tạo</th>
+          <th>Thao tác</th>
+        </thead>
+        <tbody>
+          {% for vote in votes_reported%}
+          <tr>
+            <td>{{ loop.index }}</td>
+            <td>{{vote.question}}</td>
+            <td>{{vote.user}}</td>
+            <td><a href="{{ url_for('delete_vote',vote_id = vote.id) }}">Xóa</a>
+              <a href="{{ url_for('accept_vote', vote_id = vote.id) }}">Bỏ qua</a>
+            </td>
+          </tr>
+          {% endfor %}
+        </tbody>
+
+
+      </table>
+    </div>
+
+  </body>
+</html>

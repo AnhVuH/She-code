@@ -57,7 +57,10 @@ def log_in():
                 session['username'] = request.form['username']
 
                 flash("You are now logged in")
-                return redirect(url_for('user',username = username))
+                if session['username'] == 'admin':
+                    return redirect(url_for('admin'))
+                else:
+                    return redirect(url_for('user',username = username))
             else:
                 flash("Invalid password")
                 return render_template('log_in.html')
@@ -76,6 +79,16 @@ def login_required(f):
             return redirect(url_for('log_in'))
     return decorated_function
 
+def admin_required(f):
+    @wraps(f)
+    def decorated_function(*args, **kwargs):
+        if session['username']=='admin':
+            return f(*args, **kwargs)
+        else:
+            flash("You are not admin")
+            return redirect(url_for('index'))
+    return decorated_function
+
 
 @app.route('/user/<username>')
 @login_required
@@ -85,23 +98,23 @@ def user(username):
     return render_template ('user.html', topics = topics, votes = votes)
 
 
-# def convert_image_to_string(img,image_size_MB):
-#
-#     output = BytesIO()
-#
-#     if image_size_MB < 1:
-#         img.save(output,format='JPEG')
-#     if image_size_MB < 5:
-#         img.save(output,format='JPEG',quality = 50)
-#     else:
-#         img.save(output,format ='JPEG', quality = 25)
-#
-#     image_data = output.getvalue()
-#
-#     image_bytes = base64.b64encode(image_data)
-#     image_string = image_bytes.decode()
-#
-#     return image_string
+def convert_image_to_string(img,image_size_MB):
+
+    output = BytesIO()
+
+    if image_size_MB < 1:
+        img.save(output,format='JPEG')
+    if image_size_MB < 5:
+        img.save(output,format='JPEG',quality = 50)
+    else:
+        img.save(output,format ='JPEG', quality = 25)
+
+    image_data = output.getvalue()
+
+    image_bytes = base64.b64encode(image_data)
+    image_string = image_bytes.decode()
+
+    return image_string
 
 
 
@@ -168,11 +181,61 @@ def topic(topic_id):
 
 @app.route('/group/<group_name>')
 def group(group_name):
-    group = Topic.objects(group__exact= group_name)
+    group = Topic.objects(group__exact= group_name, accepted = True)
     return render_template('group.html', group = group, group_name = group_name)
 
 
+@app.route('/admin')
+@login_required
+def admin():
+    if session['username'] =='admin':
+        topics_temp = Topic.objects(accepted =False)
+        votes_reported = Vote.objects(reported = True)
+        return render_template('admin.html',topics_temp = topics_temp, votes_reported = votes_reported)
+    else:
+        flash("You are not admin!!!")
+        return redirect(url_for('index'))
 
+@app.route('/delete_topic/<topic_id>')
+@admin_required
+def delete_topic(topic_id):
+    topic_to_del = Topic.objects.with_id(topic_id)
+    if topic_to_del !=None:
+        topic_to_del.delete()
+    return redirect(url_for('admin'))
+
+@app.route('/accept_topic/<topic_id>')
+@admin_required
+def accept_topic(topic_id):
+    topic_accepted =Topic.objects.with_id(topic_id)
+    if topic_accepted != None:
+        topic_accepted.update(accepted = True)
+    return redirect(url_for('admin'))
+
+@app.route('/report_vote/<vote_id>')
+@login_required
+def report_vote(vote_id):
+    vote_reported = Vote.objects.with_id(vote_id)
+    if vote_reported !=None:
+        vote_reported.update(reported= True)
+    return redirect(url_for('topic',topic_id =str(vote_reported.topic.id)))
+
+@app.route('/delete_vote/<vote_id>')
+@admin_required
+def delete_vote(vote_id):
+    vote_to_del = Vote.objects.with_id(vote_id)
+    if vote_to_del !=None:
+        vote_to_del.delete()
+    return redirect(url_for('admin'))
+
+
+@app.route('/accept_vote/<vote_id>')
+@admin_required
+def accept_vote(vote_id):
+    accepted_vote = Vote.objects.with_id(vote_id)
+    if accepted_vote !=None:
+        accepted_vote.update(reported = False)
+    return redirect(url_for('admin'))
 
 @app.route('/log_out')
 @login_required
