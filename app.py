@@ -85,24 +85,23 @@ def user(username):
     return render_template ('user.html', topics = topics, votes = votes)
 
 
-
-def convert_image_to_string(img,image_size_MB):
-
-    output = BytesIO()
-
-    if image_size_MB < 1:
-        img.save(output,format='JPEG')
-    if image_size_MB < 5:
-        img.save(output,format='JPEG',quality = 50)
-    else:
-        img.save(output,format ='JPEG', quality = 25)
-
-    image_data = output.getvalue()
-
-    image_bytes = base64.b64encode(image_data)
-    image_string = image_bytes.decode()
-
-    return image_string
+# def convert_image_to_string(img,image_size_MB):
+#
+#     output = BytesIO()
+#
+#     if image_size_MB < 1:
+#         img.save(output,format='JPEG')
+#     if image_size_MB < 5:
+#         img.save(output,format='JPEG',quality = 50)
+#     else:
+#         img.save(output,format ='JPEG', quality = 25)
+#
+#     image_data = output.getvalue()
+#
+#     image_bytes = base64.b64encode(image_data)
+#     image_string = image_bytes.decode()
+#
+#     return image_string
 
 
 
@@ -134,6 +133,7 @@ def new_topic():
 
 
         new_topic = Topic(question = question, group = group, image = image_string, author = session['username'])
+        # new_topic = Topic(question = question, group = group, author = session['username'])
         new_topic.save()
         flash("New topic created!!!")
         return redirect(url_for('user',username =session['username']))
@@ -165,6 +165,13 @@ def topic(topic_id):
         new_vote.save()
         flash("Voted")
         return redirect(url_for('user',username =session['username']))
+
+@app.route('/group/<group_name>')
+def group(group_name):
+    group = Topic.objects(group__exact= group_name)
+    return render_template('group.html', group = group, group_name = group_name)
+
+
 
 
 @app.route('/log_out')

@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title>{{group_name}}</title>
+  </head>
+  <body>
+    <!-- Header -->
+    <div class="">
+
+    </div>
+    <!-- Body -->
+    <div class="">
+
+      {% for topic in group %}
+      <div class="">
+        <a href="{{url_for('topic',topic_id= topic.id)}}">{{topic.question}}</a>
+        <img class ="" style="width:200px;height:200px" src="data:image/jpg;base64,{{topic.image}}" alt="">
+        <p> Yes {{topic.votes_yes}}</p>
+        <p> No {{topic.votes_no}}</p>
+
+      </div>
+      {% endfor %}
+
+    </div>
+    <!-- Footer -->
+    <div class="">
+
+    </div>
+
+  </body>
+</html>
