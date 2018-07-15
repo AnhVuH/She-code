@@ -186,6 +186,7 @@ def group(group_name):
 
 
 @app.route('/vote/<topic_id>/<vote>')
+@login_required
 def vote(topic_id,vote):
     topic = Topic.objects.with_id(topic_id)
     topic.update(add_to_set__users_voted =session['username'])
