@@ -60,9 +60,15 @@
            Người chọn: {{vote.user}}
           <div class="d-flex ">
             {% if vote.vote_yes %}
-            <div class="card-text  border border-success w-25 text-center"> <p> Yes</p></div>
+            <div class="card-text  border border-success w-25 text-center">
+              <p> Yes</p>
+               <a href="{{url_for('vote', topic_id = topic.id, vote='yes')}}"> <i class="far fa-thumbs-up "></i></a>
+            </div>
             {%else%}
-            <div class="card-text  border border-danger w-25 text-center"> <p> No</p></div>
+            <div class="card-text  border border-danger w-25 text-center">
+               <p> No</p>
+                <a href="{{url_for('vote', topic_id = topic.id,vote= 'no')}}"> <i class="far fa-thumbs-down "></i></a>
+            </div>
             {%endif%}
           </div>
           <div class="">
@@ -92,18 +98,35 @@
       <div class="d-flex justify-content-center my-5">
         <form class="" method="post">
           {% if session.username not in topic.users_voted%}
-          <label>Yes</label>
-          <input type="radio" name="choice" value="yes">
+          <div class="btn btn-light btn-outline-success">
+            <label>Yes</label>
+            <input class="" type="radio" name="choice" value="yes">
+          </div>
 
-          <label>No</label>
-          <input type="radio" name="choice" value="no">
+          <div class="btn btn-light btn-outline-danger">
+            <label>No</label>
+            <input class="" type="radio" name="choice" value="no">
+          </div>
+
+
           {% endif %}
+          <div class="form-group">
+            <label>Ý kiến của bạn</label>
+            <div class="w-400px h-200px">
+              <textarea class= "form-control" type="text"name="answer" required>  </textarea>
+            </div>
 
-          <input type="text" name="answer" >
+          </div>
+<!--
+          <input type="text" name="answer" > -->
 
-          <input type="submit"  value="Vote">
+          <input class="btn btn-light btn-outline-success w-50 " type="submit"  value="Submit">
 
         </form>
+        <!-- <div class="d-flex justify-content-around">
+          <button type="button" class="btn btn-light btn-outline-success w-50 ">  <a href="{{url_for('vote', topic_id = topic.id, vote='yes')}}"> <i class="far fa-thumbs-up "></i></a></button>
+          <button type="button" class="btn btn-light btn-outline-danger w-50"><a href="{{url_for('vote', topic_id = topic.id,vote= 'no')}}"> <i class="far fa-thumbs-down "></i></a></button>
+        </div> -->
 
       </div>
 
