@@ -31,57 +31,65 @@
           </div>
         </div>
     </div>
+    <div class="d-flex justify-content-center mt-5">
+      <h3>{{topic.question}}</h3>
+    </div>
   </div>
 </div>
     <!-- Body -->
     <div class="">
-      <div class="">
-        {{topic.question}}
+      <div class="d-flex justify-content-center mt-5">
+      <div  class="card d-flex justify-content-around" style="width: 30rem;">
+        <img class ="" style="height:200px" src="data:image/jpg;base64,{{topic.image}}" alt="">
+
+        <div class="d-flex ">
+          <div class="card-text  border border-success w-50 text-center">  <p> Yes: {{topic.votes_yes}}</p></div>
+          <div class="card-text border border-danger w-50 text-center"> <p> No: {{topic.votes_no}}</p></div>
+        </div>
+
       </div>
 
-      <div class="">
-        {{topic.group}}
-        {{topic.author}}
-      </div>
-      <div class="">
-          <img class ="" style="width:200px;height:200px" src="data:image/jpg;base64,{{topic.image}}" alt="">
-      </div>
-      <div class="">
-        <label>yes</label>
-        {{topic.votes_yes}}
-        <label>No</label>
-        {{topic.votes_no}}
+
       </div>
 
-      <div class="">
+
+      <div class="d-flex justify-content-around flex-wrap my-3">
         {% for vote in votes%}
-        <div class="">
-          {{vote.user}}
-           <br>
-          {% if vote.vote_yes %}
-            <label>Yes</label>
-          {%else%}
-            <label>No</label>
-          {%endif%}
-          <br>
-          {%if vote.answer != None%}
-          {{vote.answer}}
-          {%endif%}
+        {% if vote.answer != None %}
+        <div  class="card d-flex justify-content-around" style="width: 18rem;">
+           Người chọn: {{vote.user}}
+          <div class="d-flex ">
+            {% if vote.vote_yes %}
+            <div class="card-text  border border-success w-25 text-center"> <p> Yes</p></div>
+            {%else%}
+            <div class="card-text  border border-danger w-25 text-center"> <p> No</p></div>
+            {%endif%}
+          </div>
+          <div class="">
+            <p>
+            <!-- {%if vote.answer != None%} -->
+            {{vote.answer}}
+            <!-- {%endif%} -->
+            </p>
+            {% if vote.reported %}
+            <a href="#">Reported</a>
 
-          {% if vote.reported %}
-          <a href="#">Reported</a>
+            {% else %}
+            <a href="{{ url_for('report_vote',vote_id = vote.id)}}">Report</a>
+            {% endif %}
 
-          {% else %}
-          <a href="{{ url_for('report_vote',vote_id = vote.id)}}">Report</a>
-          {% endif %}
+          </div>
 
         </div>
+        {% endif %}
+
+
         {% endfor %}
       </div>
 
       {% if  session.logged_in%}
 
-      <div class="">
+      <div class="d-flex justify-content-center my-5">
         <form class="" method="post">
           {% if session.username not in topic.users_voted%}
           <label>Yes</label>
@@ -104,9 +112,9 @@
 
     </div>
     <!-- Footer -->
-    <div class="">
-
-    </div>
+    <div class ="bg-dark h-50px">
+            <p id ="footer-text" class ="text-center">SheCodes Hackathon 2018</p>
+        </div>
 
 
 
