@@ -1,0 +1,78 @@
+.navbar-overlay {
+    margin-bottom: -104px; // Pulls the content under the navbar up by 104px which is the height of your navbar.
+    z-index: 1; // Tells the browser that your navbar should be ontop of your content. This allows your links in your navbar to still work when you hover over them.
+}
+
+.bg-image {
+    background-image: url("../image/Elegant_Background-3-1024x576.jpg");
+    background-size: cover;
+    width: 100%;
+    height: 400px;
+    background-position: center;
+    background-attachment: fixed;
+}
+
+.bg-image a {
+    display: inline-block;
+    color: #402E2A;
+    font-weight: bold;
+    width: 200px;
+    line-height: 30px;
+    text-align: center;
+    margin-top: 20px;
+}
+
+#navbar{
+  width: 1800px;
+  height: 100px;
+}
+
+#home {
+    margin-left: 30px;
+}
+
+#log-in {
+    margin-right: 30px;
+
+}
+
+.topics {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    margin: 20px;
+    padding: 10px;
+    height: 100px;
+}
+
+.topics div {
+  flex-basis: calc(25% - 20px);
+    width: 50px;
+    height: 50px;
+    padding: 30px;
+}
+.home-button {
+  font-size: 40px;
+  font-weight: bold;
+  color: #fff;
+  font-family: 'Gaegu', cursive;
+  text-decoration: none !important;
+}
+.text-align-center{
+  text-align: center;
+}
+.height-230px{
+  height: 230px;
+}
+#footer-text{
+  color: white;
+  font-size:25px;
+  font-family: 'Gaegu', cursive;
+}
+
+.btn-home{
+  font-size: 50px;
+  font-weight: bold;
+  font-family: 'Gaegu', cursive;
+  color:#402E2A;
+}

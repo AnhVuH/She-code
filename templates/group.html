@@ -3,36 +3,74 @@
   <head>
     <meta charset="utf-8">
     <title>{{group_name}}</title>
+    {% include "metadata.html" %}
+    <link rel="stylesheet" href="../static/css/group.css">
+    <link href="https://fonts.googleapis.com/css?family=Gaegu" rel="stylesheet">
   </head>
   <body>
     <!-- Header -->
     <div class="">
+      <div class="bg-image">
+        <!-- logo -->
+        <div>
+        <div id="header" class="d-flex pt-0">
+          <p class="btn justify-content-end pl-5 home-button"> <a class="btn-home" href="{{ url_for('index')}}">Food for thought</a> </p>
 
-    </div>
-    <!-- Body -->
-    <div class="">
+          <div id="navbar" class="d-flex justify-content-end">
+            {% if session.logged_in %}
+              {% if session.username == 'admin'%}
+                <p class="btn d-flex justify-content-end"><a class="text-muted" href="{{ url_for('admin')}}">Admin</a> </p>
+              {%else%}
+                <p class="btn d-flex justify-content-end"><a class="text-muted" href="{{ url_for('user', username = session.username) }}">User Profile</a> </p>
+              {% endif %}
+              <p class="btn "><a class="text-muted" href="{{ url_for('log_out') }}">Log out</a> </p>
+            {% else %}
+              <p class="btn "><a class="text-muted" href="{{ url_for('sign_up') }}">Sign up</a> </p>
+              <p class="btn "><a class="text-muted" href="{{ url_for('log_in') }}">Log in</a> </p>
+            {% endif %}
+          </div>
+        </div>
 
-      {% for topic in group %}
-      <div class="">
-        <a href="{{url_for('topic',topic_id= topic.id)}}">{{topic.question}}</a>
-        <img class ="" style="width:200px;height:200px" src="data:image/jpg;base64,{{topic.image}}" alt="">
-        <p> Yes {{topic.votes_yes}}</p>
-        <p> No {{topic.votes_no}}</p>
-        {% if session.logged_in %}
-        {% if session.username not in topic.users_voted%}
-        <a href="{{url_for('vote', topic_id = topic.id, vote='yes')}}">Yes</a>
-        <a href="{{url_for('vote', topic_id = topic.id,vote= 'no')}}">No</a>
-        {% endif %}
-        {% endif %}
-
+        <div class="h-75 w-50 ml-5 pl-5 mt-5 d-flex justify-content-end"
+        data-aos="fade-up" data-aos-duration="1300" data-aos-anchor-placement="top-center" data-aos-once="true">
+        <p class="quote01 mb-3 font-size-25px "> <span>Hãy cùng đóng góp quan điểm của bạn nhé</span> </p>
       </div>
-      {% endfor %}
-
+        </div>
+      </div>
     </div>
+
+
+
+    <!-- Body -->
+    <div class="d-flex flex-wrap justify-content-around my-4">
+      {% for topic in group %}
+  <div  class="card d-flex justify-content-around" style="width: 18rem;">
+    <img class="card-img-top " src="data:image/jpg;base64,{{topic.image}} " style="height:200px" alt="">
+    <h5 class="card-title"><a href="{{url_for('topic',topic_id= topic.id)}}">{{topic.question}}</a></h5>
+
+    <div class="d-flex ">
+      <div class="card-text w-50">  <p> Yes: {{topic.votes_yes}}</p></div>
+      <div class="card-text w-50"> <p> No: {{topic.votes_no}}</p></div>
+    </div>
+
+    {% if session.logged_in %}
+    {% if session.username not in topic.users_voted%}
+      <div class="d-flex justify-content-around">
+        <button type="button" class="btn btn-light btn-outline-success w-50 ">  <a href="{{url_for('vote', topic_id = topic.id, vote='yes')}}"> <i class="far fa-thumbs-up "></i></a></button>
+        <button type="button" class="btn btn-light btn-outline-danger w-50"><a href="{{url_for('vote', topic_id = topic.id,vote= 'no')}}"> <i class="far fa-thumbs-down "></i></a></button>
+      </div>
+    {% endif %}
+    {% endif %}
+  </div>
+{% endfor %}
+  </div>
+
+
+
     <!-- Footer -->
-    <div class="">
-
-    </div>
+    <div class ="bg-dark h-50px">
+            <p id ="footer-text" class ="text-center">SheCodes Hackathon 2018</p>
+        </div>
 
   </body>
 </html>
