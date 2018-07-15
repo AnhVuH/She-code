@@ -44,7 +44,7 @@
     <!-- Body -->
     <div class="d-flex flex-wrap justify-content-around my-4">
       {% for topic in group %}
-  <div  class="card d-flex justify-content-around" style="width: 18rem;">
+  <div  class="card d-flex justify-content-around my-2" style="width: 18rem;">
     <img class="card-img-top " src="data:image/jpg;base64,{{topic.image}} " style="height:200px" alt="">
     <h5 class="card-title"><a href="{{url_for('topic',topic_id= topic.id)}}">{{topic.question}}</a></h5>
 
