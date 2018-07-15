@@ -18,6 +18,10 @@
         <img class ="" style="width:200px;height:200px" src="data:image/jpg;base64,{{topic.image}}" alt="">
         <p> Yes {{topic.votes_yes}}</p>
         <p> No {{topic.votes_no}}</p>
+        {% if session.username not in topic.users_voted%}
+        <a href="{{url_for('vote', topic_id = topic.id, vote='yes')}}">Yes</a>
+        <a href="{{url_for('vote', topic_id = topic.id,vote= 'no')}}">No</a>
+        {% endif %}
 
       </div>
       {% endfor %}

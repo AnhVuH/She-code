@@ -18,7 +18,7 @@
         <div id="navbar" class="d-flex justify-content-end">
           {% if session.logged_in %}
             {% if session.username == 'admin'%}
-              <p class="btn d-flex justify-xcontent-end"><a class="text-muted" href="{{ url_for('admin')}}">Admin</a> </p>
+              <p class="btn d-flex justify-content-end"><a class="text-muted" href="{{ url_for('admin')}}">Admin</a> </p>
             {%else%}
               <p class="btn d-flex justify-content-end"><a class="text-muted" href="{{ url_for('user', username = session.username) }}">User Profile</a> </p>
             {% endif %}
@@ -50,7 +50,7 @@
       data-aos="fade-up" data-aos-duration="1300" data-aos-anchor-placement="top-center" data-aos-once="true">
       <p class="quote01 mb-3 font-size-25px ">
         <span class="main-co">Food for thought</span>
-         là một trang web nhỏ để mọi người chia sẻ ý kiến, đóng góp lập luận, với mục đích phát triển tư diu pản biện của học sinh, sinh viên Việt Nam </p>
+         là một trang web nhỏ để mọi người chia sẻ ý kiến, đóng góp lập luận, với mục đích phát triển tư duy phản biện của học sinh, sinh viên Việt Nam </p>
     </div>
       </div>
       <!-- navbar -->

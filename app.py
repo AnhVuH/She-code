@@ -185,6 +185,26 @@ def group(group_name):
     return render_template('group.html', group = group, group_name = group_name)
 
 
+@app.route('/vote/<topic_id>/<vote>')
+def vote(topic_id,vote):
+    topic = Topic.objects.with_id(topic_id)
+    topic.update(add_to_set__users_voted =session['username'])
+    if vote =='yes':
+        vote_yes = True
+        count_yes = topic.votes_yes +1
+        topic.update(votes_yes= count_yes)
+    else:
+        vote_yes = False
+        count_no = topic.votes_no +1
+        topic.update(votes_no= count_no)
+    new_vote = Vote(topic = topic_id, user = session['username'],vote_yes = vote_yes)
+    new_vote.save()
+    flash("Voted")
+    group = Topic.objects(group__exact= topic.group, accepted = True)
+    return render_template('group.html', group = group, group_name =topic.group)
+
+
+
 @app.route('/admin')
 @login_required
 def admin():

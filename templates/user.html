@@ -9,9 +9,12 @@
   </head>
   <body>
     <!-- header -->
-    <div id ="bg-img">
-      <div class="">
-        <a class="btn-home" href="{{url_for('index')}}">Food for thought</a>
+    <div  class="bg-image d-flex justify-content-between">
+      <div class="w-50">
+        <p class="btn px-5"><a class="btn-home" href="{{url_for('index')}}">Food for thought</a></p>
+      </div>
+      <div  class="d-flex justify-content-end w-50">
+        <p class="btn px-5"><a class="muted-text" href="{{ url_for('log_out') }}">Log out</a> </p>
       </div>
     </div>
     <!-- thông báo -->
@@ -34,38 +37,41 @@
     <div class="d-flex flex-column justify-content-around align-center">
       <!-- Nút tạo topic mới -->
       <div class="d-flex justify-content-center my-3">
-        <button type="button"><a href="{{ url_for('new_topic')}}">Tạo topic mới</a> </button>
+        <button type="button" class ="btn btn-dark"><a class="" href="{{ url_for('new_topic')}}">Tạo topic mới</a></button>
       </div>
       <!-- Các topic đã tạo -->
       <div class="my-2">
-        <p class="text-center">Các topic đã tạo</p>
-        <div class="d-flex justify-content-around flex-wrap">
+        <div  class="w-100 d-flex justify-content-center"><h2>Các topic đã tạo</h2></div>
+        <div class="d-flex flex-wrap justify-content-around my-5">
           {% for topic in topics %}
-          <div class="">
-            <a href="{{url_for('topic',topic_id = topic.id)}}">{{topic.question}}</a>
-            <div class="">
-                <img class ="" style="width:200px;height:200px" src="data:image/jpg;base64,{{topic.image}}" alt="">
+          <div class="card border border-primary mb-4 " style="width: 18rem;">
+            <img class="card-img-top h-230px " src="data:image/jpg;base64,{{topic.image}}" alt="Card image cap">
+            <div class="card-body ">
+              <h5 class="text-center"><a  href="{{url_for('topic',topic_id = topic.id)}}">{{topic.question}}</a></h5>
             </div>
           </div>
+
           {% endfor %}
         </div>
       </div>
 
       <!-- Các vote đã vote -->
       <div class="my-2">
-        <p class="text-center">Các topic đã vote</p>
-        <div class="d-flex justify-content-around flex-wrap">
+        <div  class=" w-100 d-flex justify-content-center"><h2>Các topic đã vote</h2></div>
+        <div class="d-flex flex-wrap justify-content-around my-5">
           {% for vote in votes%}
-          <div class="">
-            <a href="{{ url_for('topic', topic_id=vote.topic.id)}}">{{vote.topic.question}} </a>
+          <div class="card border border-primary mb-4 " style="width: 18rem;">
             <div class="">
-                <img class ="" style="width:200px;height:200px" src="data:image/jpg;base64,{{vote.topic.image}}" alt="">
+                <img class ="card-img-top h-230px"  src="data:image/jpg;base64,{{vote.topic.image}}" alt="">
             </div>
-            {% if vote.vote_yes %}
-            <p>Lựa chọn: Yes</p>
-            {%else%}
-            <p>Lựa chọn: No</p>
-            {% endif %}
+            <div class="card-body ">
+                <h5 class="text-center"><a href="{{ url_for('topic', topic_id=vote.topic.id)}}">{{vote.topic.question}} </a></h5>
+                {% if vote.vote_yes %}
+                <h4>Lựa chọn: <i class="far fa-thumbs-up"></i></h4>
+                {%else%}
+                <h4>Lựa chọn: <i class="far fa-thumbs-down"></i></h4>
+                {% endif %}
+            </div>
           </div>
           {% endfor %}
 
@@ -75,8 +81,8 @@
     </div>
 
     <!-- footer -->
-    <div class="">
-
+    <div class ="bg-dark h-50px">
+        <p id ="footer-text" class ="text-center">SheCodes Hackathon 2018</p>
     </div>
 
   </body>

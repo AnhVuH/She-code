@@ -1,0 +1,25 @@
+# ----------------------
+# Flask
+# ----------------------
+flask
+flask-restful
+flask-socketio
+
+# ----------------------
+# Database
+# ----------------------
+mongoengine
+
+# ----------------------
+# Production Server
+# ----------------------
+eventlet
+gunicorn
+
+# ----------------------
+# Others
+# ----------------------
+addict
+pybase64
+Flask
+Pillow

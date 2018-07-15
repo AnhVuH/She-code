@@ -3,12 +3,36 @@
   <head>
     <meta charset="utf-8">
     <title>Topic</title>
+    {% include "metadata.html" %}
+    <link rel="stylesheet" href="../static/css/topic.css">
+    <link href="https://fonts.googleapis.com/css?family=Gaegu" rel="stylesheet">
   </head>
   <body>
     <!-- Header -->
     <div class="">
+      <div class="bg-image">
+        <!-- logo -->
+        <div>
+        <div id="header" class="d-flex pt-0">
+          <p class="btn justify-content-end pl-5 home-button"> <a class="btn-home" href="{{ url_for('index')}}">Food for thought</a> </p>
 
+          <div id="navbar" class="d-flex justify-content-end">
+            {% if session.logged_in %}
+              {% if session.username == 'admin'%}
+                <p class="btn d-flex justify-xcontent-end"><a class="text-muted" href="{{ url_for('admin')}}">Admin</a> </p>
+              {%else%}
+                <p class="btn d-flex justify-content-end"><a class="text-muted" href="{{ url_for('user', username = session.username) }}">User Profile</a> </p>
+              {% endif %}
+              <p class="btn "><a class="text-muted" href="{{ url_for('log_out') }}">Log out</a> </p>
+            {% else %}
+              <p class="btn "><a class="text-muted" href="{{ url_for('sign_up') }}">Sign up</a> </p>
+              <p class="btn "><a class="text-muted" href="{{ url_for('log_in') }}">Log in</a> </p>
+            {% endif %}
+          </div>
+        </div>
     </div>
+  </div>
+</div>
     <!-- Body -->
     <div class="">
       <div class="">
@@ -40,8 +64,10 @@
             <label>No</label>
           {%endif%}
           <br>
+          {%if vote.answer != None%}
           {{vote.answer}}
-          
+          {%endif%}
+
           {% if vote.reported %}
           <a href="#">Reported</a>
 
@@ -54,14 +80,17 @@
       </div>
 
       {% if  session.logged_in%}
-      {% if session.username not in topic.users_voted%}
+
       <div class="">
         <form class="" method="post">
+          {% if session.username not in topic.users_voted%}
           <label>Yes</label>
           <input type="radio" name="choice" value="yes">
-          <input type="text" name="answer" >
+
           <label>No</label>
           <input type="radio" name="choice" value="no">
+          {% endif %}
+
           <input type="text" name="answer" >
 
           <input type="submit"  value="Vote">
@@ -69,7 +98,7 @@
         </form>
 
       </div>
-      {% endif %}
+
       {% endif %}
 
 
